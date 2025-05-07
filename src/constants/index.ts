@@ -2,7 +2,7 @@ export const menuItems = [
   {
     title: "Dashboard",
     icon: "/svgs/stats.svg",
-    link: "/",
+    link: "/dashboard",
   },
   {
     title: "About",
