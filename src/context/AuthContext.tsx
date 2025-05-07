@@ -15,6 +15,7 @@ interface AuthContextType {
   token: string | null;
   role: string;
   user: User | null;
+  loading: boolean;
   login: (response: { token: string; user: User }) => void;
   logout: () => void;
   loginWithCredentials: (data: {
@@ -33,6 +34,7 @@ const AuthContext = createContext<AuthContextType>({
   token: null,
   role: "guest",
   user: null,
+  loading: true,
   login: () => {},
   logout: () => {},
   loginWithCredentials: async () => {},
@@ -45,6 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [token, setToken] = useState<string | null>(null);
   const [role, setRole] = useState<string>("guest");
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -60,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setRole("guest");
       }
     }
+    setLoading(false);
   }, []);
 
   const login = (response: { token: string; user: User }) => {
@@ -114,6 +118,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         logout,
         loginWithCredentials,
         registerWithCredentials,
+        loading,
       }}
     >
       {children}

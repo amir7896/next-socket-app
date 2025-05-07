@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { Providers } from "./providers";
 import DashboardLayout from "@/components/DashboardLayout/DashboardLayout";
 import AuthLayout from "@/components/AuthLayout/AuthLayout";
+import Loader from "@/components/Loader/Loader";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +13,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 function AppLayout({ children }: { children: React.ReactNode }) {
-  const { token } = useAuth();
+  const { token, loading } = useAuth();
   const router = useRouter();
 
   React.useEffect(() => {
@@ -25,6 +26,10 @@ function AppLayout({ children }: { children: React.ReactNode }) {
       router.push("/");
     }
   }, [token, router]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return token ? (
     <DashboardLayout>{children}</DashboardLayout>

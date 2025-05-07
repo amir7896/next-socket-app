@@ -58,7 +58,7 @@ const Header: React.FC = () => {
             alt="User Avatar"
             width={40}
             height={40}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full cursor-pointer"
           />
         </button>
 
